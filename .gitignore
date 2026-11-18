@@ -1,0 +1,31 @@
+# Datos que nunca deben publicarse
+*.apk
+*.nsp
+*.xci
+*.nca
+*.romfs
+*.bfsar
+*.bfres
+prod.keys
+title.keys
+*.keys
+
+# Archivos del juego / saves / backups
+romfs/
+exefs/
+save/
+backups/
+*.bin
+*.sav
+
+# Logs y cachés locales
+*.log
+*.bak
+cache/
+cache.bak*/
+dist/
+*.zip
+
+# Sistema
+.DS_Store
+Thumbs.db

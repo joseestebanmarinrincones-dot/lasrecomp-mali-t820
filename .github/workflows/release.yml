@@ -1,0 +1,52 @@
+name: Publicar perfiles
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'profiles/**'
+      - 'scripts/**'
+      - 'docs/**'
+      - 'README.md'
+      - 'LICENSE'
+      - 'VERSION'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Empaquetar perfiles y scripts
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          zip -r dist/lasrecomp-mali-profiles.zip \
+            profiles scripts docs README.md LICENSE VERSION
+          cd dist
+          sha256sum lasrecomp-mali-profiles.zip > lasrecomp-mali-profiles.zip.sha256
+
+      - name: Crear Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.${{ github.run_number }}
+          name: Perfiles Mali-G57 v1.0.${{ github.run_number }}
+          body: |
+            Actualización automática de perfiles, scripts y documentación para
+            LAS Recomp en Mali-G57 (Unisoc T820).
+
+            Descarga `lasrecomp-mali-profiles.zip`, verifica el `.sha256` y aplica con
+            `scripts/apply-config.ps1` (Windows) o `scripts/apply-config.sh` (Linux/Termux).
+            También podés usar `scripts/update.ps1` para bajar siempre este último release.
+
+            Esto **no** actualiza la app LAS Recomp; solo los perfiles y la guía.
+          files: |
+            dist/lasrecomp-mali-profiles.zip
+            dist/lasrecomp-mali-profiles.zip.sha256
+          generate_release_notes: true
+          make_latest: true

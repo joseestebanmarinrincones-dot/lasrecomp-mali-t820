@@ -8,6 +8,7 @@ on:
       - 'scripts/**'
       - 'docs/**'
       - 'README.md'
+      - 'CHANGELOG.md'
       - 'LICENSE'
       - 'VERSION'
   workflow_dispatch:
@@ -27,7 +28,7 @@ jobs:
           set -euo pipefail
           mkdir -p dist
           zip -r dist/lasrecomp-mali-profiles.zip \
-            profiles scripts docs README.md LICENSE VERSION
+            profiles scripts docs README.md CHANGELOG.md LICENSE VERSION
           cd dist
           sha256sum lasrecomp-mali-profiles.zip > lasrecomp-mali-profiles.zip.sha256
 

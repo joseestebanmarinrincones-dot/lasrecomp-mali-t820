@@ -178,6 +178,9 @@ mismo nombre en todos los releases, por eso la URL `releases/latest/download/...
 Probado en: **nubia Neo 2 5G (Z2352N), Unisoc T820, Mali-G57 MP4, Android 13 (SDK 33), 7.3 GB RAM,
 2400x1080**, con beta_6, nightly 2026-11-17 y fork 1.2.0.
 
+- Estado detallado del setup: [`docs/session-2026-11-18.md`](docs/session-2026-11-18.md)
+- Historial de versiones: [`CHANGELOG.md`](CHANGELOG.md)
+
 ---
 
 ## Privacidad y legal

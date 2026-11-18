@@ -33,7 +33,12 @@ Write-Host "Descargando $zipUrl"
 Invoke-WebRequest -UseBasicParsing -Uri $zipUrl -OutFile $zipPath
 
 try {
-    $shaText = (Invoke-WebRequest -UseBasicParsing -Uri $shaUrl).Content
+    $shaResponse = Invoke-WebRequest -UseBasicParsing -Uri $shaUrl
+    $shaText = if ($shaResponse.Content -is [byte[]]) {
+        [System.Text.Encoding]::UTF8.GetString($shaResponse.Content)
+    } else {
+        [string]$shaResponse.Content
+    }
     $expected = ($shaText -split '\s+')[0].Trim().ToLowerInvariant()
     $actual = (Get-FileHash -LiteralPath $zipPath -Algorithm SHA256).Hash.ToLowerInvariant()
     if ($expected -and ($expected -ne $actual)) {
